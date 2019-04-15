@@ -9,7 +9,7 @@
 
 MORPHODITA_OBJECTS = derivator/derivation_formatter derivator/derivator_dictionary
 MORPHODITA_OBJECTS += morpho/czech_morpho morpho/english_morpho morpho/english_morpho_guesser
-MORPHODITA_OBJECTS += morpho/external_morpho morpho/generic_morpho fst_morpho morpho/morpho
+MORPHODITA_OBJECTS += morpho/external_morpho morpho/generic_morpho morpho/fst_morpho morpho/morpho
 MORPHODITA_OBJECTS += morpho/morpho_statistical_guesser morpho/tag_filter tagger/tagger
 MORPHODITA_OBJECTS += tagset_converter/identity_tagset_converter tagset_converter/pdt_to_conll2009_tagset_converter
 MORPHODITA_OBJECTS += tagset_converter/strip_lemma_comment_tagset_converter
