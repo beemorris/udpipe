@@ -18,9 +18,9 @@ namespace ufal {
 namespace udpipe {
 namespace morphodita {
 
-class generic_morpho : public morpho {
+class fst_morpho : public morpho {
  public:
-  generic_morpho(unsigned version) : version(version) {}
+  fst_morpho(unsigned version) : version(version) {}
 
   virtual int analyze(string_piece form, morpho::guesser_mode guesser, vector<tagged_lemma>& lemmas) const override;
   virtual int generate(string_piece lemma, const char* tag_wildcard, guesser_mode guesser, vector<tagged_lemma_forms>& forms) const override;

@@ -10,7 +10,7 @@
 #include <algorithm>
 
 #include "casing_variants.h"
-#include "generic_morpho.h"
+#include "fst_morpho.h"
 #include "generic_lemma_addinfo.h"
 #include "morpho_dictionary.h"
 #include "morpho_prefix_guesser.h"
@@ -26,7 +26,7 @@ namespace ufal {
 namespace udpipe {
 namespace morphodita {
 
-bool generic_morpho::load(istream& is) {
+bool fst_morpho::load(istream& is) {
   binary_decoder data;
   if (!compressor::load(is, data)) return false;
 
@@ -57,7 +57,7 @@ bool generic_morpho::load(istream& is) {
   return data.is_end();
 }
 
-int generic_morpho::analyze(string_piece form, guesser_mode guesser, vector<tagged_lemma>& lemmas) const {
+int fst_morpho::analyze(string_piece form, guesser_mode guesser, vector<tagged_lemma>& lemmas) const {
   lemmas.clear();
 
   if (form.len) {
@@ -94,7 +94,7 @@ int generic_morpho::analyze(string_piece form, guesser_mode guesser, vector<tagg
   return -1;
 }
 
-int generic_morpho::generate(string_piece lemma, const char* tag_wildcard, morpho::guesser_mode /*guesser*/, vector<tagged_lemma_forms>& forms) const {
+int fst_morpho::generate(string_piece lemma, const char* tag_wildcard, morpho::guesser_mode /*guesser*/, vector<tagged_lemma_forms>& forms) const {
   forms.clear();
 
   tag_filter filter(tag_wildcard);
@@ -107,23 +107,23 @@ int generic_morpho::generate(string_piece lemma, const char* tag_wildcard, morph
   return -1;
 }
 
-int generic_morpho::raw_lemma_len(string_piece lemma) const {
+int fst_morpho::raw_lemma_len(string_piece lemma) const {
   return generic_lemma_addinfo::raw_lemma_len(lemma);
 }
 
-int generic_morpho::lemma_id_len(string_piece lemma) const {
+int fst_morpho::lemma_id_len(string_piece lemma) const {
   return generic_lemma_addinfo::lemma_id_len(lemma);
 }
 
-int generic_morpho::raw_form_len(string_piece form) const {
+int fst_morpho::raw_form_len(string_piece form) const {
   return form.len;
 }
 
-tokenizer* generic_morpho::new_tokenizer() const {
+tokenizer* fst_morpho::new_tokenizer() const {
   return new generic_tokenizer(version);
 }
 
-void generic_morpho::analyze_special(string_piece form, vector<tagged_lemma>& lemmas) const {
+void fst_morpho::analyze_special(string_piece form, vector<tagged_lemma>& lemmas) const {
   using namespace unilib;
 
   // Analyzer for numbers, punctuation and symbols.
