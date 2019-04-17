@@ -14,6 +14,7 @@
 #include "english_morpho.h"
 #include "external_morpho.h"
 #include "generic_morpho.h"
+#include "fst_morpho.h"
 #include "morpho.h"
 #include "morpho_ids.h"
 #include "utils/new_unique_ptr.h"
@@ -24,6 +25,7 @@ namespace morphodita {
 
 morpho* morpho::load(istream& is) {
   morpho_id id = morpho_id(is.get());
+  // std::cerr << "morpho::load()" << id << std::endl;
   switch (id) {
     case morpho_ids::CZECH:
       {
@@ -53,6 +55,12 @@ morpho* morpho::load(istream& is) {
         if (res->load(is)) return res.release();
         break;
       }
+    case morpho_ids::FST:
+        {
+          auto res = new_unique_ptr<fst_morpho>(1);
+          if (res->load(is)) return res.release();
+          break;
+        }
     case morpho_ids::SLOVAK_PDT:
       {
         auto res = new_unique_ptr<czech_morpho>(czech_morpho::morpho_language::SLOVAK, 3);
@@ -76,6 +84,7 @@ morpho* morpho::load(istream& is) {
 }
 
 morpho* morpho::load(const char* fname) {
+
   ifstream f(fname, ifstream::binary);
   if (!f) return nullptr;
 

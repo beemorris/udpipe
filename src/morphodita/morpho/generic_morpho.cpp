@@ -27,6 +27,7 @@ namespace udpipe {
 namespace morphodita {
 
 bool generic_morpho::load(istream& is) {
+  // std::cerr << "generic_morpho::load()" << std::endl;
   binary_decoder data;
   if (!compressor::load(is, data)) return false;
 
@@ -59,7 +60,6 @@ bool generic_morpho::load(istream& is) {
 
 int generic_morpho::analyze(string_piece form, guesser_mode guesser, vector<tagged_lemma>& lemmas) const {
   lemmas.clear();
-
   if (form.len) {
     // Generate all casing variants if needed (they are different than given form).
     string form_uclc; // first uppercase, rest lowercase
@@ -68,6 +68,7 @@ int generic_morpho::analyze(string_piece form, guesser_mode guesser, vector<tagg
 
     // Start by analysing using the dictionary and all casing variants.
     dictionary.analyze(form, lemmas);
+    
     if (!form_uclc.empty()) dictionary.analyze(form_uclc, lemmas);
     if (!form_lc.empty()) dictionary.analyze(form_lc, lemmas);
     if (!lemmas.empty()) return NO_GUESSER;

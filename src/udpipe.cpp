@@ -120,7 +120,12 @@ int main(int argc, char* argv[]) {
     // Train the model
     cerr << "Training the UDPipe model." << endl;
     string method = options.count("method") ? options["method"] : "morphodita_parsito";
-    if (!trainer::train(method, training, heldout, options["tokenizer"], options["tagger"], options["parser"], model, error))
+    bool res=false;
+    if (options.count("fst")){
+      res=trainer::train(method, training, heldout, options["tokenizer"], options["fst"], options["tagger"], options["parser"], model, error);
+    }else {res = trainer::train(method, training, heldout, options["tokenizer"], options["tagger"], options["parser"], model, error);
+    }
+    if (!res)
       runtime_failure("An error occurred during model training: " << error);
     cerr << "The trained UDPipe model was saved." << endl;
   } else

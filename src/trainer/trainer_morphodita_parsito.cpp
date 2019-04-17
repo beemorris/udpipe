@@ -654,7 +654,12 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     if (guesser_enrich_dictionary) {
       // Create temporary morphology using only the guesser
       stringstream empty_data, guesser_description_copy(guesser_description.str()), guesser_only_morphology;
+    //  if(...){
+    //    guesser_only_morphology.put(morphodita::morpho_ids::FST);
+
+  //    }else{
       guesser_only_morphology.put(morphodita::morpho_ids::GENERIC);
+//}
       morphodita::generic_morpho_encoder::encode(empty_data, dictionary_suffix_len, dictionary_special_tags, guesser_description_copy, guesser_only_morphology);
 
       unique_ptr<morphodita::morpho> guesser_only_morpho(morphodita::morpho::load(guesser_only_morphology));
