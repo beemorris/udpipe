@@ -20,6 +20,12 @@ namespace udpipe {
 const string trainer::DEFAULT;
 const string trainer::NONE = "none";
 
+bool trainer::train(const string& method, const vector<sentence>& train, const vector<sentence>& heldout,
+                    const string& tokenizer, const string& analyzer, const string& tagger, const string& parser, ostream& os, string& error){
+    std::cout <<"analyzer" << analyzer << std::endl;
+    trainer::train(method, train, heldout, tokenizer, tagger, parser, os, error);
+}
+
 bool trainer::train(const string& method, const vector<sentence>& training, const vector<sentence>& heldout,
                     const string& tokenizer, const string& tagger, const string& parser, ostream& os, string& error) {
   error.clear();

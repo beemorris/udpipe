@@ -19,7 +19,8 @@ class trainer {
  public:
   static bool train(const string& method, const vector<sentence>& train, const vector<sentence>& heldout,
                     const string& tokenizer, const string& tagger, const string& parser, ostream& os, string& error);
-
+  static bool train(const string& method, const vector<sentence>& train, const vector<sentence>& heldout,
+                    const string& tokenizer, const string& analyzer, const string& tagger, const string& parser, ostream& os, string& error);
   static const string DEFAULT;
   static const string NONE;
 
