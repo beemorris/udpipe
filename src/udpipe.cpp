@@ -51,6 +51,7 @@ int main(int argc, char* argv[]) {
                        {"immediate", options::value::none},
                        {"outfile", options::value::any},
                        {"output", options::value::any},
+                       {"fst", options::value::any},
                        {"parse", options::value::none},
                        {"parser", options::value::any},
                        {"tag", options::value::none},
