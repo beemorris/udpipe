@@ -668,7 +668,18 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     //    guesser_only_morphology.put(morphodita::morpho_ids::FST);
 
   //    }else{
-      guesser_only_morphology.put(morphodita::morpho_ids::GENERIC);
+
+          for (auto&& entry : sorted_dictionary)
+      morpho_input << entry << '\n';
+    const string& fst_enabled = option_str(tagger, "fst", model);
+    if (!fst_enabled.empty()){
+      morpho_description.put(morphodita::morpho_ids::FST);
+      std::cout << "blah" <<std::endl;
+      }else{
+        morpho_description.put(morphodita::morpho_ids::GENERIC);
+    }
+    morphodita::generic_morpho_encoder::encode(morpho_input, dictionary_suffix_len, dictionary_special_tags, guesser_description, morpho_description);
+  }
 //}
       morphodita::generic_morpho_encoder::encode(empty_data, dictionary_suffix_len, dictionary_special_tags, guesser_description_copy, guesser_only_morphology);
 
