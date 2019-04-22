@@ -696,12 +696,14 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     for (auto&& entry : sorted_dictionary)
       morpho_input << entry << '\n';
     const string& fst_enabled = option_str(tagger, "fst", model);
+    //options::print(tagger);
     if (!fst_enabled.empty()){
       morpho_description.put(morphodita::morpho_ids::FST);
       std::cout << "fst_enabled1 = "<< fst_enabled <<std::endl;
       }else{
         morpho_description.put(morphodita::morpho_ids::GENERIC);
         std::cout << "fst_enabled2 = "<< fst_enabled<<std::endl;
+        std::cerr << "options.count"<<tagger.count("fst") << std::endl;
     }
     morphodita::generic_morpho_encoder::encode(morpho_input, dictionary_suffix_len, dictionary_special_tags, guesser_description, morpho_description);
   }
