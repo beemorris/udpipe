@@ -43,13 +43,6 @@
 namespace ufal {
 namespace udpipe {
 
-//Line 47-51 added by Yanting
-  bool trainer_morphodita_parsito::train(const vector<sentence>& training, const vector<sentence>& heldout,
-                      const string& tokenizer, const string& analyzer, const string& tagger, const string& parser, ostream& os, string& error){
-      // std::cout <<"analyzer: " << analyzer << std::endl;
-      trainer_morphodita_parsito::train(training, heldout, tokenizer, "", tagger, parser, os, error);
-  }
-
 bool trainer_morphodita_parsito::train(const vector<sentence>& training, const vector<sentence>& heldout,
                                        const string& tokenizer, const string& tagger, const string& parser, ostream& os, string& error) {
   error.clear();
@@ -217,10 +210,7 @@ bool trainer_morphodita_parsito::train_tokenizer(const vector<sentence>& trainin
 }
 
 bool trainer_morphodita_parsito::train_tagger(const vector<sentence>& training, const vector<sentence>& heldout,
-                                              const string& analyzer, const string& options, ostream& os, string& error) {
-std::cerr << "trainer_morphodita_parsito::train_tagger()" << analyzer << std::endl;
-//Line 223 added by Yanting
-    trainer_morphodita_parsito::train_tagger(training, heldout, "", options, os, error);
+                                              const string& options, ostream& os, string& error) {
   if (options == NONE) {
     os.put(0);
   } else {
@@ -668,18 +658,7 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     //    guesser_only_morphology.put(morphodita::morpho_ids::FST);
 
   //    }else{
-
-          for (auto&& entry : sorted_dictionary)
-      morpho_input << entry << '\n';
-    const string& fst_enabled = option_str(tagger, "fst", model);
-    if (!fst_enabled.empty()){
-      morpho_description.put(morphodita::morpho_ids::FST);
-      std::cout << "blah" <<std::endl;
-      }else{
-        morpho_description.put(morphodita::morpho_ids::GENERIC);
-    }
-    morphodita::generic_morpho_encoder::encode(morpho_input, dictionary_suffix_len, dictionary_special_tags, guesser_description, morpho_description);
-  }
+      guesser_only_morphology.put(morphodita::morpho_ids::GENERIC);
 //}
       morphodita::generic_morpho_encoder::encode(empty_data, dictionary_suffix_len, dictionary_special_tags, guesser_description_copy, guesser_only_morphology);
 
@@ -716,8 +695,13 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     stringstream morpho_input;
     for (auto&& entry : sorted_dictionary)
       morpho_input << entry << '\n';
-
-    morpho_description.put(morphodita::morpho_ids::GENERIC);
+    const string& fst_enabled = option_str(tagger, "fst", model);
+    if (!fst_enabled.empty()){
+      morpho_description.put(morphodita::morpho_ids::FST);
+      std::cout << "blah" <<std::endl;
+      }else{
+        morpho_description.put(morphodita::morpho_ids::GENERIC);
+    }
     morphodita::generic_morpho_encoder::encode(morpho_input, dictionary_suffix_len, dictionary_special_tags, guesser_description, morpho_description);
   }
 
