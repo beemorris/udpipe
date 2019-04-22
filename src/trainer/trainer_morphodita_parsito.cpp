@@ -698,9 +698,10 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     const string& fst_enabled = option_str(tagger, "fst", model);
     if (!fst_enabled.empty()){
       morpho_description.put(morphodita::morpho_ids::FST);
-      std::cout << "fst_enabled blah" <<std::endl;
+      std::cout << "fst_enabled1 = "<< fst_enabled <<std::endl;
       }else{
         morpho_description.put(morphodita::morpho_ids::GENERIC);
+        std::cout << "fst_enabled2 = "<< fst_enabled<<std::endl;
     }
     morphodita::generic_morpho_encoder::encode(morpho_input, dictionary_suffix_len, dictionary_special_tags, guesser_description, morpho_description);
   }
