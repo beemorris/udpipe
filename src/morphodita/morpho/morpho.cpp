@@ -25,7 +25,7 @@ namespace morphodita {
 
 morpho* morpho::load(istream& is) {
   morpho_id id = morpho_id(is.get());
-  // std::cerr << "morpho::load()" << id << std::endl;
+  std::cerr << "morpho::load()" << id << std::endl;
   switch (id) {
     case morpho_ids::CZECH:
       {
@@ -56,7 +56,7 @@ morpho* morpho::load(istream& is) {
         break;
       }
     case morpho_ids::FST:
-        {
+        {std::cerr << "FST!!!" << std::endl;
           auto res = new_unique_ptr<fst_morpho>(1);
           if (res->load(is)) return res.release();
           break;

@@ -695,7 +695,7 @@ bool trainer_morphodita_parsito::train_tagger_model(const vector<sentence>& trai
     stringstream morpho_input;
     for (auto&& entry : sorted_dictionary)
       morpho_input << entry << '\n';
-    const string& fst_enabled = option_str(tagger, "fst", model);
+    const string& fst_enabled = option_str(tagger, "fst_file", model);
     //options::print(tagger);
     if (!fst_enabled.empty()){
       morpho_description.put(morphodita::morpho_ids::FST);

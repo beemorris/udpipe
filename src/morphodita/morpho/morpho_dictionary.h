@@ -158,7 +158,7 @@ void morpho_dictionary<LemmaAddinfo>::load(binary_decoder& data) {
 
 template <class LemmaAddinfo>
 void morpho_dictionary<LemmaAddinfo>::analyze(string_piece form, vector<tagged_lemma>& lemmas) const {
-std::cerr << "mopho_dictionary<LemmaAddinfo>::analyze()" << std::endl;
+// std::cerr << "mopho_dictionary<LemmaAddinfo>::analyze()" << std::endl;
   int max_suffix_len = suffixes.max_length();
 
   uint16_t* suff_stack[16]; vector<uint16_t*> suff_heap;
